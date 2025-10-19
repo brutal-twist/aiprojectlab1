@@ -1,0 +1,120 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{AI-based Credit Card Fraud Detection on Imbalanced Data\\
+{\large Using SMOTE and Machine Learning Models}}
+\author{Your Name \\ Course / Department \\ Institute Name}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The project addresses the class imbalance challenge in credit card fraud detection. Fraudulent transactions are rare and standard models often fail. We implement a pipeline using SMOTE for oversampling, feature scaling, and evaluate classical and ensemble models with metrics suited to imbalanced datasets (precision, recall, F1-score, AUPRC). Code and results are available at: \url{YOUR_GITHUB_REPO_URL_HERE}.
+\end{abstract}
+
+\section{Introduction}
+\subsection{Domain}
+Automation and AI; supervised learning for fraud detection.
+
+\subsection{Problem Statement}
+The central challenge in AI-based credit card fraud detection is severe class imbalance, where fraudulent transactions are extremely rare. This project implements and evaluates methods designed to perform well on imbalanced data, using SMOTE to balance the training set, plus careful evaluation.
+
+\section{Objectives}
+\begin{itemize}
+  \item Build a reproducible pipeline to preprocess credit card transaction data.
+  \item Apply SMOTE to address class imbalance on the training set.
+  \item Train and compare multiple models: Logistic Regression, Random Forest, XGBoost, and a simple Neural Network.
+  \item Evaluate using AUPRC, ROC-AUC, precision, recall, F1-score, and confusion matrix.
+  \item Provide code, dataset instructions, and results on GitHub.
+\end{itemize}
+
+\section{Dataset}
+We use the common Credit Card Fraud dataset (anonymous european cardholders; transactions labelled as fraud/non-fraud). If using the Kaggle dataset, please follow its license and citation guidelines. Place the dataset CSV in the project folder at \texttt{data/creditcard.csv}.
+
+\section{Methodology}
+\subsection{Preprocessing}
+\begin{enumerate}
+  \item Load dataset, check missing values, basic EDA.
+  \item Scale continuous features (StandardScaler).
+  \item Split into train/test (stratified).
+  \item Apply SMOTE on \textbf{training set only}.
+\end{enumerate}
+
+\subsection{Models}
+\begin{itemize}
+  \item Logistic Regression (baseline)
+  \item Random Forest
+  \item XGBoost (or LightGBM if preferred)
+  \item Simple Feed-forward Neural Network (optional)
+\end{itemize}
+
+\subsection{Evaluation}
+\begin{itemize}
+  \item Use precision, recall, F1-score, confusion matrix.
+  \item ROC-AUC and especially Precision-Recall AUC (AUPRC) because of class imbalance.
+  \item Cross-validation on training set for hyperparameter tuning (Stratified K-fold).
+\end{itemize}
+
+\section{Block Diagram}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{block_diagram.png} % <-- This line is added/modified
+  \caption{System block diagram for AI-based credit card fraud detection.} % I've simplified the caption too
+\end{figure}
+
+\section{Implementation}
+Key scripts and notebooks are in the GitHub repository (see URL above). Briefly:
+\begin{itemize}
+  \item \texttt{data\_prep.py} -- preprocessing and train/test split.
+  \item \texttt{train\_models.py} -- apply SMOTE, train models, save model artifacts.
+  \item \texttt{evaluate.py} -- load trained models and generate plots and metrics.
+  \item \texttt{notebooks/EDA.ipynb} -- exploratory data analysis and visualizations.
+\end{itemize}
+
+\section{Results}
+Include plots here (confusion matrix, PR curve, ROC curve, feature importances). After running \texttt{evaluate.py}, export the figures into the \texttt{results/} folder and include them using \texttt{\textbackslash includegraphics}. For example: \texttt{\textbackslash includegraphics[width=0.8\textbackslash textwidth]\{results/confusion\_matrix\_rf.png\}}.
+
+\section{Discussion}
+Discuss tradeoffs: SMOTE can create synthetic minority samples but may cause overfitting if not combined with proper cross-validation. Threshold tuning and cost-sensitive learning are alternatives.
+
+\section{Future Work}
+\begin{itemize}
+  \item Experiment with ensemble stacking and cost-sensitive algorithms.
+  \item Online learning for streaming transactions and concept drift handling.
+  \item Deploy model as REST API and integrate with transaction processing systems.
+\end{itemize}
+
+\section{Reproducibility and GitHub}
+Full code, notebooks, the draw.io diagram, results, and environment files are in the GitHub repo: \url{https://github.com/brutal-twist/aiprojectlab1}
+
+\section{References}
+Include papers and resources you used e.g. SMOTE paper, scikit-learn docs, XGBoost docs, Kaggle dataset citation.
+
+\appendix
+\section{Appendix A: Example Commands}
+\begin{verbatim}
+# install environment
+pip install -r requirements.txt
+
+# run preprocessing
+python data_prep.py --input data/creditcard.csv --out data/processed.pkl
+
+# train models
+python train_models.py --data data/processed.pkl --out models/
+
+# evaluate
+python evaluate.py --models models/ --out results/
+\end{verbatim}
+
+\end{document}
